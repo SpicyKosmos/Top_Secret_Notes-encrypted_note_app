@@ -2,16 +2,20 @@ import tkinter
 import tkinter.messagebox
 from tkinter import *
 
+import PIL.Image
 import cryptocode
-from PIL import ImageTk
+
+from PIL import ImageTk, Image
 
 window = Tk()
 window.title("Top Secret Notes")
 window.geometry("400x600")
 window.resizable(height=False, width=False)
 
+original_image = Image.open("top_secret1.png")
+resized_image = original_image.resize((100, 100), Image.LANCZOS)
+app_logo = ImageTk.PhotoImage(resized_image)
 
-app_logo = ImageTk.PhotoImage(file="top_secret1.png")
 
 my_font = ("Arial",12,"bold")
 
@@ -55,7 +59,7 @@ def decode_note():
         msg_text.insert(tkinter.END,decode_msg)
 
 
-logo_label = Label(image=app_logo,)
+logo_label = Label(image=app_logo)
 logo_label.pack(side="top")
 
 msg_title_label = Label(text="Title", font=my_font)
