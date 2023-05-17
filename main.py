@@ -1,10 +1,7 @@
 import tkinter
 import tkinter.messagebox
 from tkinter import *
-
-import PIL.Image
 import cryptocode
-
 from PIL import ImageTk, Image
 
 window = Tk()
