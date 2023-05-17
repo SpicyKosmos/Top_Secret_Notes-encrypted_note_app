@@ -12,8 +12,8 @@ window.title("Top Secret Notes")
 window.geometry("400x600")
 window.resizable(height=False, width=False)
 
-original_image = Image.open("top_secret1.png")
-resized_image = original_image.resize((100, 100), Image.LANCZOS)
+original_image = Image.open("top_secret.png")
+resized_image = original_image.resize((100, 110), Image.LANCZOS)
 app_logo = ImageTk.PhotoImage(resized_image)
 
 
