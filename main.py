@@ -21,22 +21,27 @@ my_font = ("Arial",12,"bold")
 
 def encode_note():
 
-    msg = msg_text.get("1.0",END)
+    if len(msg_text.get("1.0",END).strip()) == 0 or len(msg_title_text.get("1.0",END).strip()) == 0 or len(key_entry.get().strip()) == 0:
 
-    key = key_entry.get()
+        tkinter.messagebox.showerror("Input Error!", "Please enter all info.")
 
-    title= msg_title_text.get("1.0",END)
+    else:
+        msg = msg_text.get("1.0",END)
 
-    encoded = cryptocode.encrypt(msg, key)
+        key = key_entry.get()
 
-    file = open("Encrypt Messages.txt", "a")
-    file.write("\n\n")
-    file.write(f"{title}\n{encoded}")
-    file.close()
+        title= msg_title_text.get("1.0",END)
 
-    msg_text.delete("1.0", END)
-    msg_title_text.delete("1.0", END)
-    key_entry.delete("0", END)
+        encoded = cryptocode.encrypt(msg, key)
+
+        file = open("Encrypt Messages.txt", "a")
+        file.write("\n\n")
+        file.write(f"{title}\n{encoded}")
+        file.close()
+
+        msg_text.delete("1.0", END)
+        msg_title_text.delete("1.0", END)
+        key_entry.delete("0", END)
 
 def decode_note():
 
@@ -44,16 +49,22 @@ def decode_note():
     key = key_entry.get()
     decode_msg = cryptocode.decrypt(encode_msg, key)
 
-    if decode_msg == False:
+    if len(msg_text.get("1.0", END).strip()) == 0 or len(key_entry.get().strip()) == 0:
+        tkinter.messagebox.showerror("Input Error!", "Please enter encrypted message and key")
 
-        tkinter.messagebox.showerror("Wrong Key","The key is incorrect!")
+    elif decode_msg == False:
 
-
+        tkinter.messagebox.showerror("Info Error", "The key or encrypted message incorrect!")
 
     else:
-        msg_text.delete("1.0",END)
-        key_entry.delete("0", END)
-        msg_text.insert(tkinter.END,decode_msg)
+            try:
+                msg_text.delete("1.0",END)
+                key_entry.delete("0", END)
+                msg_text.insert(tkinter.END,decode_msg)
+            except:
+                tkinter.messagebox.showerror("Error!", "Please enter encrypted message!")
+
+
 
 
 logo_label = Label(image=app_logo)
